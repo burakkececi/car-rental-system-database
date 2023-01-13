@@ -876,8 +876,8 @@ BEGIN
     -- Calculate the total fee and late fee
     total_fee := cost_per_day * num_days - (cost_per_day * num_days * (d_rate/100));
     late_fee := 0;
-    IF :NEW.booking_return_datetime > :NEW.booking_actual_return_datetime THEN
-      SELECT extract(hour FROM (:NEW.booking_actual_return_datetime - :NEW.booking_actual_return_datetime)) INTO num_hours FROM dual;
+    IF :NEW.booking_actual_return_datetime > :NEW.booking_return_datetime THEN
+      SELECT extract(hour FROM (:NEW.booking_actual_return_datetime - :NEW.booking_return_datetime)) INTO num_hours FROM dual;
       late_fee := late_fee_per_hour * num_hours;
     END IF;
 
